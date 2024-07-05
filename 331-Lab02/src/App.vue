@@ -1,26 +1,24 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
-
+import EventCard from './components/EventCard.vue'
 </script>
 
 <template>
   <div id="layout">
-  <header>
+    <header>
+      <div class="wrapper">
+        <nav>
+          <RouterLink to="/">Home</RouterLink>
+          <RouterLink to="/about">About</RouterLink>
+        </nav>
+      </div>
+    </header>
 
-    <div class="wrapper">
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
-
-  <RouterView />
-</div>
+    <RouterView />
+  </div>
 </template>
 
-<style scoped>
+<style>
 #layout {
   font-family: Avinir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -34,5 +32,8 @@ nav a {
 }
 nav a.router-link-exact-active {
   color: #42b983;
+}
+h2{
+  font-size: 20px;
 }
 </style>
