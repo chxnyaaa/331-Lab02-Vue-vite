@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
-import EventCard from './components/EventCard.vue'
 </script>
 
 <template>
@@ -9,13 +8,11 @@ import EventCard from './components/EventCard.vue'
       <div class="wrapper">
         <nav>
           <RouterLink to="/">Event</RouterLink>
-          <RouterLink to="/about">About</RouterLink>
+          | <RouterLink to="/about">About</RouterLink> |
+          <RouterLink to="/student">Student</RouterLink>
         </nav>
       </div>
     </header>
-
-    <!-- <h1>Events For Good</h1> -->
-    <!-- new element -->
 
     <RouterView />
   </div>
@@ -36,7 +33,8 @@ nav a {
 nav a.router-link-exact-active {
   color: #42b983;
 }
-h2{
+
+h2 {
   font-size: 20px;
 }
 </style>
