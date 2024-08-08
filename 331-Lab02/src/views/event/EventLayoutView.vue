@@ -1,34 +1,24 @@
-<script setup lang ="ts">
-import {ref} from 'vue'
-import type {Event} from '@/type'
-import EventService from '@/services/EventService'
-import { useRouter  } from 'vue-router';
-const event = ref <Event | null> (null)
-const props = defineProps({
-    id: String
-})
-const router = useRouter()
-EventService.getEventById(Number(props.id))
-    .then((response) => {
-        event.value = response.data
-    }).catch(error => {
-        console.log(error)
-        if(error.response.status === 404) {
-            router.push({name: '404-resource', params: { resource: 'event'}})
-        } else {
-            router.push({ name: 'network-error'})
-        }
-    })
-</script>
-<template>
-    <div v-if="event">
-        <h1>{{ event.title }}</h1>
-        <div id="nav">
-            <RouterLink :to="{ name: 'event-detail-view', params:{id}}">Details</RouterLink> |
-            <RouterLink :to="{ name: 'event-register-view', params:{id}}">Register</RouterLink> |
-            <RouterLink :to="{ name: 'event-edit-view', params:{id}}">Edit</RouterLink>
-        </div>
+<script setup lang="ts">
+import { useEventStore } from '@/stores/event'
+import { storeToRefs } from 'pinia'
 
-        <RouterView :event="event"></RouterView>
+const store = useEventStore()
+const { event } = storeToRefs(store)
+</script>
+
+<template>
+  <div v-if="event">
+    <h1>{{ event.title }}</h1>
+    <div id="nav">
+      <RouterLink :to="{ name: 'event-detail-view', params: { id: event.id } }">Details</RouterLink>
+      |
+      <RouterLink :to="{ name: 'event-register-view', params: { id: event.id } }"
+        >Register</RouterLink
+      >
+      |
+      <RouterLink :to="{ name: 'event-edit-view', params: { id: event.id } }">Edit</RouterLink>
     </div>
+
+    <RouterView :event="event"></RouterView>
+  </div>
 </template>
