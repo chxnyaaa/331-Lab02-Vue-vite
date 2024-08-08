@@ -9,9 +9,10 @@ import EventRegisterView from '@/views/event/EventRegisterView.vue'
 import EventLayoutView from '@/views/event/EventLayoutView.vue'
 import NotFoundView from '@/views/NotFoundView.vue'
 import NetworkErrorView from '@/views/NetworkErrorView.vue'
+import nProgress from 'nprogress'
 
 export function createAppRouter(pageLimit: (number | null)[]) {
-  return createRouter({
+  const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes: [
       {
@@ -35,27 +36,26 @@ export function createAppRouter(pageLimit: (number | null)[]) {
       },
       {
         path: '/event/:id',
-        name: 'event-layout',
+        name: 'event-layout-view',
         component: EventLayoutView,
         props: true,
         children: [
           {
             path: '',
-            name: 'event-detail',
+            name: 'event-detail-view',
             component: EventDetailView,
-            props:true
+            props: true
           },
           {
             path: 'edit',
-            name: 'event-edit',
-            props:true,
+            name: 'event-edit-view',
+            props: true,
             component: EventEditView
-            
           },
           {
             path: 'register',
-            name: 'event-register',
-            props:true,
+            name: 'event-register-view',
+            props: true,
             component: EventRegisterView
           }
         ]
@@ -87,7 +87,14 @@ export function createAppRouter(pageLimit: (number | null)[]) {
         path: '/network-error',
         name: 'network-error',
         component: NetworkErrorView
-      },
+      }
     ]
   })
+  router.beforeEach(() => {
+    nProgress.start()
+  })
+  router.afterEach(() => {
+    nProgress.done()
+  })
+  return router
 }
