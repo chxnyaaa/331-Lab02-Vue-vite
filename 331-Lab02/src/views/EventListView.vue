@@ -39,7 +39,7 @@ const hasNextPage = computed(() => {
 <template>
   <h1>Event for good</h1>
   <!--new element-->
-  <div class="events">
+  <div class="flex flex-col items-center">
     <EventCard v-for="event in events" :key="event.id" :event="event"></EventCard>
     <EventInfo v-for="event in events" :key="event.id" :event="event"></EventInfo>
     <div class="pagination">
@@ -63,3 +63,20 @@ const hasNextPage = computed(() => {
   </div>
 </template>
 
+<style scoped>
+.pagination {
+  display: flex;
+  width: 290px;
+}
+.pagination a {
+  flex: 1;
+  text-decoration: none;
+  color: #2c3e50;
+}
+#page-prev {
+  text-align: left;
+}
+#page-next {
+  text-align: right;
+}
+</style>
